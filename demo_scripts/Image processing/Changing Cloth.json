@@ -1,0 +1,612 @@
+{
+  "last_node_id": 21,
+  "last_link_id": 19,
+  "nodes": [
+    {
+      "id": 11,
+      "type": "SAMModelLoader (segment anything)",
+      "pos": [
+        397.4559631347656,
+        807.2944946289062
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": [
+            7
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SAMModelLoader (segment anything)"
+      },
+      "widgets_values": [
+        "sam_hq_vit_h (2.57GB)"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "GroundingDinoModelLoader (segment anything)",
+      "pos": [
+        401.8293762207031,
+        914.95166015625
+      ],
+      "size": [
+        361.20001220703125,
+        58
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "GROUNDING_DINO_MODEL",
+          "type": "GROUNDING_DINO_MODEL",
+          "links": [
+            6
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GroundingDinoModelLoader (segment anything)"
+      },
+      "widgets_values": [
+        "GroundingDINO_SwinT_OGC (694MB)"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "SaveImage",
+      "pos": [
+        1538.81103515625,
+        254.6067352294922
+      ],
+      "size": [
+        382.0089111328125,
+        368.8415222167969
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 14
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "Image Comparer (rgthree)",
+      "pos": [
+        1542.81005859375,
+        678.606689453125
+      ],
+      "size": [
+        378.7837829589844,
+        365.4375915527344
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_a",
+          "type": "IMAGE",
+          "link": 16,
+          "dir": 3
+        },
+        {
+          "name": "image_b",
+          "type": "IMAGE",
+          "link": 17,
+          "dir": 3
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "comparer_mode": "Slide"
+      },
+      "widgets_values": [
+        [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_jdqca_00041_.png&type=temp&subfolder=&rand=0.9552721837992568"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_jdqca_00042_.png&type=temp&subfolder=&rand=0.4586261627541872"
+          }
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "type": "CatVTONWrapper",
+      "pos": [
+        1188.23876953125,
+        248.4676971435547
+      ],
+      "size": [
+        315,
+        218
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 13
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 8
+        },
+        {
+          "name": "refer_image",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            14,
+            16
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CatVTONWrapper"
+      },
+      "widgets_values": [
+        25,
+        "fp16",
+        0,
+        "fixed",
+        50,
+        2.5
+      ]
+    },
+    {
+      "id": 14,
+      "type": "Note",
+      "pos": [
+        1183.9490966796875,
+        533.122802734375
+      ],
+      "size": [
+        301.2690734863281,
+        140.8996124267578
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "- Keep Mask Grow low-ish\n- Mixed precision fp16 is faster and a good middle ground, fp32 is more precise but slower\n- Steps 40+\n- CFG 2.5-3 are the better values, the higher it is the closer to the garment the generation will be."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        403.3092956542969,
+        256.4134826660156
+      ],
+      "size": [
+        362.6601867675781,
+        447.596923828125
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9,
+            13,
+            17
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "title": "Load Person and Mask the area here",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "TK-2015-06-07-020-001-Harajuku.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "Note",
+      "pos": [
+        899.7155151367188,
+        987.368408203125
+      ],
+      "size": [
+        246.57054138183594,
+        95.48408508300781
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "If you want to use automatic masking, connect the mask from the GroundingDinoSAMSegment node output to the Wrapper"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 20,
+      "type": "MaskToImage",
+      "pos": [
+        1164.7789306640625,
+        791.287109375
+      ],
+      "size": [
+        264.5999755859375,
+        26
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            19
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskToImage"
+      }
+    },
+    {
+      "id": 21,
+      "type": "PreviewImage",
+      "pos": [
+        1174.14892578125,
+        860.7350463867188
+      ],
+      "size": [
+        210,
+        246
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 19
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 10,
+      "type": "GroundingDinoSAMSegment (segment anything)",
+      "pos": [
+        793.8295288085938,
+        809.95166015625
+      ],
+      "size": [
+        352.79998779296875,
+        122
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "sam_model",
+          "type": "SAM_MODEL",
+          "link": 7,
+          "slot_index": 0
+        },
+        {
+          "name": "grounding_dino_model",
+          "type": "GROUNDING_DINO_MODEL",
+          "link": 6
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            8,
+            18
+          ],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GroundingDinoSAMSegment (segment anything)"
+      },
+      "widgets_values": [
+        "dress",
+        0.3
+      ]
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [
+        777.9122924804688,
+        259.0638427734375
+      ],
+      "size": [
+        375.55657958984375,
+        444.9903564453125
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Load Garment Here",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "OIP (2).jpeg",
+        "image"
+      ]
+    }
+  ],
+  "links": [
+    [
+      2,
+      4,
+      0,
+      2,
+      2,
+      "IMAGE"
+    ],
+    [
+      6,
+      9,
+      0,
+      10,
+      1,
+      "GROUNDING_DINO_MODEL"
+    ],
+    [
+      7,
+      11,
+      0,
+      10,
+      0,
+      "SAM_MODEL"
+    ],
+    [
+      8,
+      10,
+      1,
+      2,
+      1,
+      "MASK"
+    ],
+    [
+      9,
+      3,
+      0,
+      10,
+      2,
+      "IMAGE"
+    ],
+    [
+      13,
+      3,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      14,
+      2,
+      0,
+      16,
+      0,
+      "IMAGE"
+    ],
+    [
+      16,
+      2,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      17,
+      3,
+      0,
+      18,
+      1,
+      "IMAGE"
+    ],
+    [
+      18,
+      10,
+      1,
+      20,
+      0,
+      "MASK"
+    ],
+    [
+      19,
+      20,
+      0,
+      21,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Segment Anything (Optional)",
+      "bounding": [
+        387.4559631347656,
+        726.7504272460938,
+        1062.1190185546875,
+        397.9150085449219
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "Input Image",
+      "bounding": [
+        384,
+        175,
+        785,
+        536
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "Cloth Swap",
+      "bounding": [
+        1180.34814453125,
+        176.7984161376953,
+        335,
+        302
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "Output",
+      "bounding": [
+        1528.65869140625,
+        180.63475036621094,
+        403,
+        873
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.964614964500004,
+      "offset": [
+        -133.151818546822,
+        -137.09239056017546
+      ]
+    }
+  },
+  "version": 0.4
+}
